@@ -1,11 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
 import Product_Card from "./ProductCard.jsx";
 import { useProducts } from "../../hooks/useApi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BestProductContainer = () => {
-    const [sortOrder, setSortOrder] = useState("");
-    
     // Use React Query for data fetching
     const { 
         data: products = [], 
@@ -13,18 +11,6 @@ const BestProductContainer = () => {
         error, 
         isError 
     } = useProducts({ status: true, limit: 8 });
-
-    // Memoized sorting logic
-    const sortedProducts = useMemo(() => {
-        if (!products || products.length === 0) return [];
-        
-        if (sortOrder === "lowToHigh") {
-            return [...products].sort((a, b) => a.price - b.price);
-        } else if (sortOrder === "highToLow") {
-            return [...products].sort((a, b) => b.price - a.price);
-        }
-        return products;
-    }, [products, sortOrder]);
 
     // Loading state with skeleton
     if (isLoading) {
@@ -73,7 +59,7 @@ const BestProductContainer = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4">
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,28 +72,8 @@ const BestProductContainer = () => {
                 </h3>
             </motion.div>
 
-            {/* Sort Controls */}
-            {sortedProducts.length > 0 && (
-                <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="flex justify-center mb-6"
-                >
-                    <select
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                        className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F4952C] focus:border-transparent"
-                    >
-                        <option value="">Sort by price</option>
-                        <option value="lowToHigh">Price: Low to High</option>
-                        <option value="highToLow">Price: High to Low</option>
-                    </select>
-                </motion.div>
-            )}
-
             {/* Empty State */}
-            {sortedProducts.length === 0 && (
+            {products.length === 0 && (
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -125,7 +91,7 @@ const BestProductContainer = () => {
             )}
 
             {/* Products Grid */}
-            {sortedProducts.length > 0 && (
+            {products.length > 0 && (
                 <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -134,9 +100,9 @@ const BestProductContainer = () => {
                     data-testid="products-grid"
                 >
                     <AnimatePresence>
-                        {sortedProducts.map((item, index) => (
+                        {products.map((item, index) => (
                             <motion.div
-                                key={item.productId}
+                                key={item.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
@@ -149,7 +115,7 @@ const BestProductContainer = () => {
                                     transition: { duration: 0.2 }
                                 }}
                             >
-                                <Product_Card item={item} />
+                                <Product_Card item={item} showPrice={false} />
                             </motion.div>
                         ))}
                     </AnimatePresence>

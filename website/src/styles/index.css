@@ -1,6 +1,10 @@
 /* Import fonts and design system first - must be before all other CSS */
 @import './design-system.css';
 
+/* Import component-specific styles */
+@import './outlet-cards.css';
+@import './carousel.css';
+
 @import "tailwindcss";
 
 :root {

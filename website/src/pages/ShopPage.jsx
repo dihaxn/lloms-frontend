@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../websiteComponents/navbar/Navbar';
 import Footer from '../websiteComponents/footer/Footer';
@@ -11,25 +11,13 @@ const ShopPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get('search') || '';
 
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState([]);
   const [sortOrder, setSortOrder] = useState('');
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const data = await getAllProducts();
-        const activeProducts = data.filter((item) => item.productStatus === true);
-        setItems(activeProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchItems();
-  }, []);
+  // Use the new useProducts hook that automatically falls back to mock data
+  const { data: items = [], isLoading: loading, error } = useProducts({
+    search: searchQuery,
+  });
 
   const handleCategoryChange = (e) => {
     const categoryName = e.target.value;
@@ -42,7 +30,7 @@ const ShopPage = () => {
 
   const filteredProducts = items.filter((product) => {
     const matchesCategory =
-        filterCategory.length === 0 || filterCategory.includes(product.productCatagory);
+        filterCategory.length === 0 || filterCategory.includes(product.category);
     const matchesSearch = product.productName
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -57,7 +45,7 @@ const ShopPage = () => {
 
   const getCategoryCounts = () => {
     const counts = filteredProducts.reduce((acc, product) => {
-      acc[product.productCatagory] = (acc[product.productCatagory] || 0) + 1;
+      acc[product.category] = (acc[product.category] || 0) + 1;
       return acc;
     }, {});
     return Object.keys(counts).map((category) => ({
@@ -88,7 +76,14 @@ const ShopPage = () => {
             )}
           </div>
 
-          {loading ? (
+          {error ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="text-center">
+                  <p className="text-red-600 mb-2">Error loading products: {error.message}</p>
+                  <p className="text-gray-600 text-sm">Using mock data as fallback</p>
+                </div>
+              </div>
+          ) : loading ? (
               <div className="flex justify-center items-center h-40">
                 <div className="loader border-t-4 border-orange-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
               </div>
@@ -137,7 +132,7 @@ const ShopPage = () => {
                   ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {sortedProducts.map((item) => (
-                            <Product_Card key={item.productId} item={item} />
+                            <Product_Card key={item.id} item={item} showPrice={true} />
                         ))}
                       </div>
                   )}

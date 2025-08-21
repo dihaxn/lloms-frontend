@@ -13,6 +13,7 @@ const Home = lazy(() => import("./pages/Home.jsx"));
 const ShopPage = lazy(() => import("./pages/ShopPage.jsx"));
 const ContactUsPage = lazy(() => import("./pages/ContactUsPage.jsx"));
 const Aboutpage = lazy(() => import("./pages/Aboutpage.jsx"));
+const DemoPage = lazy(() => import("./pages/DemoPage.jsx"));
 
 function AppWebsite() {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -71,6 +72,10 @@ function AppWebsite() {
               <Route
                 path="/about"
                 element={<PageTransition variant="fade" duration={0.6}><Aboutpage /></PageTransition>}
+              />
+              <Route
+                path="/demo"
+                element={<PageTransition variant="fade" duration={0.6}><DemoPage /></PageTransition>}
               />
               <Route
                 path="*"

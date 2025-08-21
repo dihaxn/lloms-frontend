@@ -87,6 +87,17 @@ Create a `.env` file in the root directory:
 VITE_API_BASE_URL=http://localhost:8080/api/v1
 ```
 
+### Mock Data System
+The project includes a comprehensive mock data system that automatically activates when the backend is not available:
+
+- **Automatic Fallback**: When the backend is unreachable, the app automatically switches to mock data
+- **Realistic Data**: Includes 8 sample products, 4 outlets, categories, and reviews
+- **No Code Changes**: Your components work seamlessly with both mock and real data
+- **Easy Testing**: Perfect for frontend development and testing without backend setup
+
+#### Demo Page
+Visit `/demo` to see the mock data in action and test all functionality.
+
 ### Tailwind CSS
 The project uses Tailwind CSS 4 with custom configuration in `tailwind.config.js`.
 

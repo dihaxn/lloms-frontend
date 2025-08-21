@@ -1,0 +1,60 @@
+/* Styling for the card set container */
+.card-set-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Custom pagination dot styling */
+.swiper-pagination {
+    position: absolute;
+    bottom: -20px; /* Add some space below the cards */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Styling for the pagination bullets */
+.swiper-pagination-bullet {
+    background-color: #ccc;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+}
+
+/* Active pagination dot style */
+.swiper-pagination-bullet-active {
+    background-color: #F4952C; /* Orange color for active dot */
+}
+
+/* Ensure swiper container takes the full width */
+.mySwiper {
+    width: 100%;
+    padding-bottom: 30px; /* Add padding to ensure dots don't overlap with cards */
+}
+
+/* Optional: style the swiper slide to be centered */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .font-pacifico {
+    font-family: 'Pacifico', cursive;
+  }
+
+  .font-quicksand {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }

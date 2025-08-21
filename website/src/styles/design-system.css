@@ -1,0 +1,62 @@
+/* Little Lanka Design System - Core Styles */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Color Palette - CSS Custom Properties */
+:root {
+  /* Primary Brand Colors (Orange) */
+  --color-primary-50: #fff0e6;
+  --color-primary-100: #ffdecc;
+  --color-primary-200: #ffc2a6;
+  --color-primary-300: #ffa580;
+  --color-primary-400: #ff8c42; /* Core Brand Color */
+  --color-primary-500: #f57c2a;
+  --color-primary-600: #e66a1a;
+  --color-primary-700: #cc560c;
+  --color-primary-800: #b34700;
+  --color-primary-900: #993d00;
+  
+  /* Neutral Colors (Warm Grays) */
+  --color-neutral-50: #f9f8f7;
+  --color-neutral-100: #f3f2f1;
+  --color-neutral-200: #e8e6e4;
+  --color-neutral-300: #dcd9d6;
+  --color-neutral-400: #c4bfba;
+  --color-neutral-500: #aca8a2;
+  --color-neutral-600: #8c867e;
+  --color-neutral-700: #6b665f;
+  --color-neutral-800: #4d4842;
+  --color-neutral-900: #332f2a;
+  
+  /* Semantic Colors */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-error: #dc3545;
+  --color-info: #17a2b8;
+  
+  /* Text & Background */
+  --color-text: var(--color-neutral-800);
+  --color-text-light: var(--color-neutral-600);
+  --color-background: var(--color-neutral-50);
+  --color-white: #ffffff;
+  
+  /* Fonts */
+  --font-primary: 'Poppins', sans-serif;
+  --font-accent: 'Pacifico', cursive;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-neutral-900);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
